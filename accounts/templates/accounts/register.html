@@ -70,9 +70,20 @@
 </head>
 <body>
     <div class="navbar">Job Portal</div>
+    <div>       
+                {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                &nbsp;
+                &nbsp;
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+                {% endif %}
+            </div>
     <div class="container">
         <h2>Create Your Account</h2>
-        <form method="post">
+        <form method="POST">
             {% csrf_token %}
             <label for="username">Username</label>
             <input type="text" name="username" id="username" required>

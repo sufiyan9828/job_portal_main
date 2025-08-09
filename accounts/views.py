@@ -17,8 +17,8 @@ class Register(View):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request,f"Account Created Successfully,To Continue from Here\nLogin in Job Queue")
-            redirect('login')
+            messages.success(request,f"Account Created Successfully, Now Login {user.username}")
+            return redirect('login')
         else:
             context = {
                 'form': form
@@ -44,7 +44,7 @@ class Login(View):
             if user:
                 login(request,user)
                 messages.success(request,"Logged in, Succeefully")
-                redirect('home')
+                return redirect('home')
             else:
                 context = {
                     'form':form
