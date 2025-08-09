@@ -34,22 +34,22 @@
                             <a class="nav-link fw-bold" href="#">Why JobQueue?</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-bold" href="#">How it works</a>
+                            <a class="nav-link fw-bold" href="{% url 'faq' %}">FAQ</a>
                         </li>
                     </ul>
                     <div class="d-flex ms-lg-3">
                         {% if not request.user.is_authenticated %}
                         &nbsp;
-                        <a class="btn btn-primary" href="/accounts/login/">Login</a>
+                        <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
                         &nbsp;
                         &nbsp;
-                        <a class="btn btn-outline-primary" href="/accounts/register/">Register</a>
+                        <a class="btn btn-outline-primary" href="{% url 'register' %}">Register</a>
                         &nbsp;
                         {% else %}
                         Hello,
                         {{ request.user.username }}
                         &nbsp;
-                        <a class="btn btn-outline-primary" href="/accounts/logout/">Logout</a>
+                        <a class="btn btn-outline-primary" href="{% url 'logout' %}">Logout</a>
                         {% endif %}
                     </div>
                 </div>
