@@ -1,68 +1,48 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib import messages
-from django.views import View
-from .forms import RegisterForm,LoginForm
-from django.contrib.auth import login,authenticate,logout
-# Create your views here.
+from django.contrib.auth.decorators import login_required
+from .forms import UserRegisterForm
 
-class Register(View):
-    def get(self,request):
-        form = RegisterForm()
-        context = {
-            'form':form
-        }
-        return render(request,'accounts/register.html',context)
-    
-    def post(self,request):
-        form = RegisterForm(request.POST)
+def register_view(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            messages.success(request,f"Account Created Successfully, Now Login {user.username}")
+            form.save()
+            messages.success(request, 'Account created successfully')
             return redirect('login')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'accounts/register.html', {'user_form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        username_or_email = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(request, username=username_or_email, password=password)
+
+        if user is None:
+            try:
+                user_obj = User.objects.get(email=username_or_email)
+                user = authenticate(request, username=user_obj.username, password=password)
+            except User.DoesNotExist:
+                user = None
+
+        if user is not None:
+            login(request, user)
+            return redirect('home')
         else:
-            context = {
-                'form': form
-            }
-            messages.error(request,f"Form is Not Valid")
-            return render(request,'accounts/register.html',context)
+            messages.error(request, 'Invalid credentials')
+            return redirect('login')
 
-class Login(View):
-    def get(self,request):
-        form = LoginForm()
-        context = {
-            'form': form
-        }
-        return render(request,'accounts/login.html',context)
-    
-    def post(self,request):
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request,username = username, password = password)
+    return render(request, 'accounts/login.html')
 
-            if user:
-                login(request,user)
-                messages.success(request,"Logged in, Succeefully")
-                return redirect('home')
-            else:
-                context = {
-                    'form':form
-                }
-                messages.error(request,"Invalid Credentials")
-                return render(request,'accounts/login.html',context)
-        else:
-            context = {
-                'form':form
-            }
-            messages.error(request,"Form is Not Valid")
-            return render(request,'accounts/login.html',context)
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
-class Logout(View):
-    def get(self,request):
-        logout(request)
-        return redirect('/')
-    
-    def post(self,request):
-        logout(request)
-        return redirect('/')
+@login_required(login_url='login')
+def home_view(request):
+    return render(request, 'accounts/home.html')    
