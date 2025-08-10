@@ -69,7 +69,7 @@
     </style>
 </head>
 <body>
-    <div class="navbar">Job Portal</div>
+    <div class="navbar">Job Portal-JobQueue</div>
     <div>       
                 {% if messages %}
             <ul class="messages">
@@ -83,7 +83,7 @@
             </div>
     <div class="container">
         <h2>Login to Your Account</h2>
-        <form method="POST">
+        <form action="" method="POST">
             {% csrf_token %}
             <label for="username">Username or Email</label>
             <input type="text" name="username" id="username" required>
