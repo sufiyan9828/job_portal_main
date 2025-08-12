@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 
@@ -10,59 +11,25 @@
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
 </head>
 
 <body>
-    <header>
+    <header class="nav-color">
         <!-- place navbar here -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-            <div class="container">
-                <a class="navbar-brand fw-bold" href="#">JobQueue</a>
-    
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"></button>
-    
-                <div class="collapse navbar-collapse" id="mainNav">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'home' %}" aria-current="page">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold" href="#">Jobs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold" href="{% url 'faq' %}">FAQ</a>
-                        </li>
-                    </ul>
-                    <div class="d-flex ms-lg-3">
-                        {% if not request.user.is_authenticated %}
-                        &nbsp;
-                        <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
-                        &nbsp;
-                        &nbsp;
-                        <a class="btn btn-outline-primary" href="{% url 'register' %}">Register</a>
-                        &nbsp;
-                        {% else %}
-                        Hello,
-                        {{ request.user.username }}
-                        &nbsp;
-                        <a class="btn btn-outline-primary" href="{% url 'logout' %}">Logout</a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <div>       
-                {% if messages %}
+        {% include 'navbar.html' %}
+        <div>
+            {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
                 &nbsp;
                 &nbsp;
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
+                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
             </ul>
-                {% endif %}
-            </div>
+            {% endif %}
+        </div>
     </header>
     <main>
         {% block main %}
@@ -83,4 +50,5 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
 </body>
+
 </html>

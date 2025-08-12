@@ -1,11 +1,14 @@
-from django import forms
-from .models import User
+from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
+from .models import User
+from django import forms
 
-class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField()
-    dob = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
-
+class RegisterForm(UserCreationForm):
+    password = forms.CharField(max_length=25,widget=forms.PasswordInput)
     class Meta:
         model = User
-        fields = ['username', 'email', 'dob', 'password1', 'password2'] 
+        fields = ['username','email','contact']
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=25)
+    password = forms.CharField(max_length=25,widget=forms.PasswordInput)

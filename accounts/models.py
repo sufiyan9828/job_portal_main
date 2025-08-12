@@ -2,11 +2,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    username = models.CharField(max_length=150, unique=True)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=128)
-    dob = models.DateField(null=True, blank=True)  # Your custom field
-
+    contact = models.CharField(max_length=13)
+    
+    user_type = models.CharField(max_length=1,choices = (
+        ('E',"Employeer"),
+        ('J',"Job-Seeker"),
+    ))
     def __str__(self):
         return self.username
 

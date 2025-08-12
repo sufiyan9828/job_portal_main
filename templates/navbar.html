@@ -1,0 +1,44 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg border-bottom" id="nav-color">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">JobQueue</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"></button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'home' %}" aria-current="page">Home</a>
+                </li>
+                {% if request.user.is_authenticated and request.user.user_type == 'E' %}
+                <li class="nav-item">
+                    <a class="nav-link fw-bold" href="#">Post's</a>
+                </li>
+                {% endif %}
+                {% if request.user.is_authenticated and request.user.user_type == 'J' %}
+                <li class="nav-item">
+                    <a class="nav-link fw-bold" href="#">Job's</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link fw-bold" href="{% url 'faq' %}">FAQ</a>
+                </li>
+            </ul>
+            <div class="d-flex ms-lg-3">
+                {% if not request.user.is_authenticated %}
+                &nbsp;
+                <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+                &nbsp;
+                <a class="btn btn-outline-primary" href="{% url 'register' %}">Register</a>
+                &nbsp;
+                {% else %}
+                Hello,
+                {{ request.user.username }}
+                &nbsp;
+                <a class="btn btn-outline-primary" href="{% url 'logout' %}">Logout</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
