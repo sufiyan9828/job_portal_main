@@ -4,3 +4,9 @@
     border-radius: 20%;
     margin-right: 1vw;
 }
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    /* font-family: 'Lato', sans-serif; */
+}
