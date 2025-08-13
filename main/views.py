@@ -9,3 +9,6 @@ def home(request):
 
 def faq(request):
     return render(request,'main/faq.html')
+
+def jobs(request):
+    return render(request,'main/jobs.html')

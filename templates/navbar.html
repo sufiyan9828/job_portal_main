@@ -1,8 +1,9 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg border-bottom" id="nav-color">
+<nav class="navbar navbar-expand-lg border-bottom border-dark-subtle">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="#">JobQueue</a>
-
+        <a class="navbar-brand fw-bold" href="/">
+            <img src="{% static 'image/logo.png' %}" alt="JobQueue" class="logo"></a>
+            
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
             aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"></button>
 
@@ -18,7 +19,7 @@
                 {% endif %}
                 {% if request.user.is_authenticated and request.user.user_type == 'J' %}
                 <li class="nav-item">
-                    <a class="nav-link fw-bold" href="#">Job's</a>
+                    <a class="nav-link fw-bold" href="{% url 'jobs' %}">Job's</a>
                 </li>
                 {% endif %}
                 <li class="nav-item">

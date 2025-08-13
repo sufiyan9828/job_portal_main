@@ -4,7 +4,6 @@ from .models import User
 from django import forms
 
 class RegisterForm(UserCreationForm):
-    password = forms.CharField(max_length=25,widget=forms.PasswordInput)
     class Meta:
         model = User
         fields = ['username','email','contact']
