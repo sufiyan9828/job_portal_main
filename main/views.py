@@ -12,3 +12,6 @@ def faq(request):
 
 def jobs(request):
     return render(request,'main/jobs.html')
+
+def posts(request):
+    return render(request,'main/posts.html')

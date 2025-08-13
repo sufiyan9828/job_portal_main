@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block main %}
+<section id="posts" class="py-lg-5">
+    <div class="container">
+        <div class="text-md-start text-center">
+            <h4 class="fw-bold">Post a Job</h4>
+            <p class="lead text-muted mt-1">Reach millions of active job seekers with JobQueue!</p>
+        </div>
+        <div class="alert alert-primary" role="alert">
+            Job postings are currently available in <strong>Mumbai</strong> only.
+        </div>
+        <form action="">
+            <div class="card shadow-sm border-0 rounded-3 p-4">
+                <h4 class="fw-bold mb-3">What are you Hiring for?</h4>
+                <input type="text" class="form-control mb-3" placeholder="Job Title">
+                <input type="text" class="form-control mb-3" placeholder="Company Name">
+
+                <h4 class="fw-bold mb-3">What are you Hiring for?</h4>
+                <div class="input-group mb-3">
+                    <select class="form-select">
+                        <option>India</option>
+                    </select>
+                </div>
+                <input type="text" class="form-control" placeholder="Location">
+            </div>
+            <div class="card shadow-sm border-0 rounded-3 p-4 mt-3">
+                <h4 class="fw-bold mb-3">What type of job is it?</h4>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="timing" id="Full Time">
+                    <label class="form-check-label" for="Full Time">Full Time</label>
+                </div>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="timing" id="Part Time">
+                    <label class="form-check-label" for="Part Time">Part Time</label>
+                </div>
+            </div>
+            <div class="card shadow-sm border-0 rounded-3 p-4 mt-3">
+                <h4 class="fw-bold mb-3">What Does The Job Pay?</h4>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="money" id="Salary">
+                    <label class="form-check-label" for="Salary">Salary</label>
+                </div>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="money" id="Hourly">
+                    <label class="form-check-label" for="Hourly Time">Hourly</label>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

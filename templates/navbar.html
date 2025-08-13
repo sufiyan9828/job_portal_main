@@ -14,7 +14,7 @@
                 </li>
                 {% if request.user.is_authenticated and request.user.user_type == 'E' %}
                 <li class="nav-item">
-                    <a class="nav-link fw-bold" href="#">Post's</a>
+                    <a class="nav-link fw-bold" href="{% url 'posts' %}">Post's</a>
                 </li>
                 {% endif %}
                 {% if request.user.is_authenticated and request.user.user_type == 'J' %}
