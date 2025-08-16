@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block main %}
-<section id="posts" class="py-lg-5">
-    <div class="container">
+<section id="posts">
+    <div class="container p-5 mt-0">
         <div class="text-md-start text-center">
             <h4 class="fw-bold">Post a Job</h4>
             <p class="lead text-muted mt-1">Reach millions of active job seekers with JobQueue!</p>
@@ -11,41 +11,95 @@
         </div>
         <form action="">
             <div class="card shadow-sm border-0 rounded-3 p-4">
-                <h4 class="fw-bold mb-3">What are you Hiring for?</h4>
-                <input type="text" class="form-control mb-3" placeholder="Job Title">
-                <input type="text" class="form-control mb-3" placeholder="Company Name">
+                <h4 class="fw-bold mb-3">What are you hiring for?</h4>
+                <input type="text" class="form-control mb-3" placeholder="Job Title" required>
+                <input type="text" class="form-control mb-3" placeholder="Company Name" required>
 
-                <h4 class="fw-bold mb-3">What are you Hiring for?</h4>
+                <h4 class="fw-bold mb-3">Where is the job located?</h4>
                 <div class="input-group mb-3">
                     <select class="form-select">
                         <option>India</option>
                     </select>
                 </div>
-                <input type="text" class="form-control" placeholder="Location">
+                <input type="text" class="form-control" placeholder="Location" required>
             </div>
             <div class="card shadow-sm border-0 rounded-3 p-4 mt-3">
                 <h4 class="fw-bold mb-3">What type of job is it?</h4>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="timing" id="Full Time">
-                    <label class="form-check-label" for="Full Time">Full Time</label>
+                    <input class="form-check-input" type="radio" name="timing" id="full-time">
+                    <label class="form-check-label" for="full-time">Full Time</label>
                 </div>
                 <div class="form-check mt-3">
-                    <input class="form-check-input" type="radio" name="timing" id="Part Time">
-                    <label class="form-check-label" for="Part Time">Part Time</label>
+                    <input class="form-check-input" type="radio" name="timing" id="part-time">
+                    <label class="form-check-label" for="part-time">Part Time</label>
+                </div>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="timing" id="other-time">
+                    <label class="form-check-label" for="other-time">Other</label>
                 </div>
             </div>
             <div class="card shadow-sm border-0 rounded-3 p-4 mt-3">
-                <h4 class="fw-bold mb-3">What Does The Job Pay?</h4>
+                <h4 class="fw-bold mb-3">What does the job pay?</h4>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="money" id="Salary">
-                    <label class="form-check-label" for="Salary">Salary</label>
+                    <input class="form-check-input" type="radio" name="money" id="salary">
+                    <label class="form-check-label" for="salary">Salary</label>
                 </div>
                 <div class="form-check mt-3">
-                    <input class="form-check-input" type="radio" name="money" id="Hourly">
-                    <label class="form-check-label" for="Hourly Time">Hourly</label>
+                    <input class="form-check-input" type="radio" name="money" id="hourly">
+                    <label class="form-check-label" for="hourly">Hourly</label>
                 </div>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="money" id="other-money">
+                    <label class="form-check-label" for="other-money">Other</label>
+                </div>
+            </div>
+            <div class="card shadow-sm border-0 rounded-3 p-4 mt-3">
+                <h4 class="fw-bold mb-3">Want to include a company logo? (optional)</h4>
+                <input type="file" class="form-control" name="" aria-describedby="fileHelpId"/>
+            </div>
+            <div class="card shadow-sm border-0 rounded-3 p-4 mt-3">
+                <h4 class="fw-bold mb-3">How would you like to receive applications?</h4>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="only" id="email" required>
+                    <label class="form-check-label" for="email">Receive applications by email</label>
+                    <p class="small text-muted">Users will apply on Joblist.com and we will email you their resume.</p>
+                </div>
+                
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="only" id="url" required>
+                    <label class="form-check-label" for="url">Send applicants to a URL</label>
+                    <p class="small text-muted">Users will be redirected to an external URL that you provide.</p>
+                </div>
+            </div>
+            <div class="card shadow-sm border-0 rounded-3 p-4 mt-3">
+                <div id="email-input" class="d-none mt-3">
+                    <h5 class="fw-bold md-4">Send applications to this email:</h5>
+                    <input type="email" class="form-control p-3" placeholder="Email Address" required>
+                </div>
+
+                <div id="url-input" class="d-none mt-3">
+                    <h5 class="fw-bold mb-4">Send applications to this URL:</h5>
+                    <input type="url" class="form-control p-3" placeholder="Enter Application URL" required>
+                </div>
+            </div>
+            <div class="m">
+                <a href="#" class="btn btn-dark d-block p-3"><h4>Next</h4></a>
             </div>
         </form>
     </div>
 </section>
+<script>
+    const emailRadio = document.getElementById("email")
+    const emailInput =  document.getElementById("email-input")
+    emailRadio.addEventListener("change",function() {
+        emailInput.classList.remove("d-none")
+        urlInput.classList.add("d-none");
+    })
+    const urlRadio = document.getElementById("url")
+    const urlInput =  document.getElementById("url-input")
+    urlRadio.addEventListener("change",function() {
+        urlInput.classList.remove("d-none")
+        emailInput.classList.add("d-none");
+    })
+</script>
 {% endblock %}
