@@ -2,8 +2,9 @@ from django.db import models
 
 # Create your models here.
 class Posts(models.Model):
-    job_title = models.CharField(max_length=25)
-    company_name = models.CharField(max_length=30)
+    job_title = models.CharField(max_length=100)
+    company_name = models.CharField(max_length=100)
+    location = models.CharField(max_length=50)
 
     job_type = models.CharField(max_length=1, choices=(
         ('F','Full Time'),
@@ -19,15 +20,9 @@ class Posts(models.Model):
 
     company_logo = models.ImageField(null = True,blank = True)
 
-    location = models.CharField(max_length=50)
 
     email_to = models.EmailField()  
 
-    url_to = models.URLField()
+    # url_to = models.URLField()
 
-    description = models.TextField()
-
-class ProductImages(models.Model):
-    company_logo = models.ForeignKey(Posts,on_delete=models.CASCADE,related_name="posts")
-    image = models.ImageField(upload_to='posts/')
-    alt_text = models.CharField(max_length=100)
+    description = models.TextField(null=True,blank=True)

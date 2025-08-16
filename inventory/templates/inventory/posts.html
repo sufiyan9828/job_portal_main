@@ -9,11 +9,14 @@
         <div class="alert alert-primary" role="alert">
             Job postings are currently available in <strong>Mumbai</strong> only.
         </div>
-        <form action="">
+        <form action="" method="POST">
+            {% csrf_token %}
             <div class="card shadow-sm border-0 rounded-3 p-4">
                 <h4 class="fw-bold mb-3">What are you hiring for?</h4>
-                <input type="text" class="form-control mb-3" placeholder="Job Title" required>
-                <input type="text" class="form-control mb-3" placeholder="Company Name" required>
+                <input type="text" class="form-control mb-3" placeholder="Job Title" name="job_title" required>
+                <div class="text-danger small">{{ form.job_type.errors }}</div>
+                <input type="text" class="form-control mb-3" placeholder="Company Name" name="company_name" required>
+                <div class="text-danger small">{{ form.company_name.errors }}</div>
 
                 <h4 class="fw-bold mb-3">Where is the job located?</h4>
                 <div class="input-group mb-3">
@@ -21,90 +24,72 @@
                         <option>India</option>
                     </select>
                 </div>
-                <input type="text" class="form-control" placeholder="Location" required>
+                <input type="text" class="form-control" placeholder="Location" name="location" required>
+                <div class="text-danger small">{{ form.location.errors }}</div>
             </div>
             <div class="card shadow-sm border-0 rounded-3 p-4 mt-3">
                 <h4 class="fw-bold mb-3">What type of job is it?</h4>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="timing" id="full-time">
+                    <input class="form-check-input" type="radio" name="job_type" id="full-time" value="F">
                     <label class="form-check-label" for="full-time">Full Time</label>
                 </div>
                 <div class="form-check mt-3">
-                    <input class="form-check-input" type="radio" name="timing" id="part-time">
+                    <input class="form-check-input" type="radio" name="job_type" id="part-time" value="P">
                     <label class="form-check-label" for="part-time">Part Time</label>
                 </div>
                 <div class="form-check mt-3">
-                    <input class="form-check-input" type="radio" name="timing" id="other-time">
+                    <input class="form-check-input" type="radio" name="job_type" id="other-time" value="O">
                     <label class="form-check-label" for="other-time">Other</label>
+                    <div class="text-danger small">{{ form.job_type.errors }}</div>
+
                 </div>
             </div>
             <div class="card shadow-sm border-0 rounded-3 p-4 mt-3">
                 <h4 class="fw-bold mb-3">What does the job pay?</h4>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="money" id="salary">
+                    <input class="form-check-input" type="radio" name="job_pay_type" id="salary" value="S">
                     <label class="form-check-label" for="salary">Salary</label>
                 </div>
                 <div class="form-check mt-3">
-                    <input class="form-check-input" type="radio" name="money" id="hourly">
+                    <input class="form-check-input" type="radio" name="job_pay_type" id="hourly" value="H">
                     <label class="form-check-label" for="hourly">Hourly</label>
                 </div>
                 <div class="form-check mt-3">
-                    <input class="form-check-input" type="radio" name="money" id="other-money">
+                    <input class="form-check-input" type="radio" name="job_pay_type" id="other-money" value="O">
                     <label class="form-check-label" for="other-money">Other</label>
+                    <div class="text-danger small">{{ form.job_pay_type.errors }}</div>
                 </div>
             </div>
             <div class="card shadow-sm border-0 rounded-3 p-4 mt-3">
                 <h4 class="fw-bold mb-3">Want to include a company logo? (optional)</h4>
-                <input type="file" class="form-control" name="" aria-describedby="fileHelpId" />
+                <input type="file" class="form-control" name="company_logo" aria-describedby="fileHelpId" />
+                <div class="text-danger small">{{ form.company_logo.errors }}</div>
             </div>
             <div class="card shadow-sm border-0 rounded-3 p-4 mt-3">
-                <h4 class="fw-bold mb-3">How would you like to receive applications?</h4>
-                <div class="form-check mt-3">
-                    <input class="form-check-input" type="radio" name="only" id="email" required>
-                    <label class="form-check-label" for="email">Receive applications by email</label>
-                    <p class="small text-muted">Users will apply on Joblist.com and we will email you their resume.</p>
-                </div>
-
-                <div class="form-check mt-3">
-                    <input class="form-check-input" type="radio" name="only" id="url" required>
-                    <label class="form-check-label" for="url">Send applicants to a URL</label>
-                    <p class="small text-muted">Users will be redirected to an external URL that you provide.</p>
+                <div id="email-input" class="mt-3">
+                    <h5 class="fw-bold md-5">Send applications to this email:</h5>
+                    <input type="email" class="form-control p-3" placeholder="Email Address" name="email_to" required>
+                    <div class="text-danger small">{{ form.email_to.errors }}</div>
                 </div>
             </div>
             <div class="card shadow-sm border-0 rounded-3 p-4 mt-3">
-                <div id="email-input" class="d-none mt-3">
-                    <h5 class="fw-bold md-4">Send applications to this email:</h5>
-                    <input type="email" class="form-control p-3" placeholder="Email Address" required>
+                <h1 class="fw-bold mt-1">Add a Description</h1>
+                <div class="alert alert-secondary mt-2 mb-0" role="alert">
+                    ready to add a description?
                 </div>
-
-                <div id="url-input" class="d-none mt-3">
-                    <h5 class="fw-bold mb-4">Send applications to this URL:</h5>
-                    <input type="url" class="form-control p-3" placeholder="Enter Application URL" required>
+                <div class="mb-3">
+                    <label for="" class="form-label"></label>
+                    <textarea class="form-control border-black" name="description" id="" placeholder="Add a Description"
+                        rows="6"></textarea>
+                    <div class="text-danger small">{{ form.email_to.errors }}</div>
                 </div>
-            </div>
-            <div class="card shadow-sm border-0 rounded-3 p-4 mt-3">
-                <h1 class="fw-bold mt-lg-1">Add a Description</h1>
             </div>
             <div class="m-3">
-                <a href="#" class="btn btn-dark d-block p-3">
-                    <h4>Next</h4>
-                </a>
+                <button type="submit" class="btn btn-primary w-100  ">
+                    Submit
+                </button>
             </div>
         </form>
     </div>
 </section>
-<script>
-    const emailRadio = document.getElementById("email")
-    const emailInput = document.getElementById("email-input")
-    emailRadio.addEventListener("change", function () {
-        emailInput.classList.remove("d-none")
-        urlInput.classList.add("d-none");
-    })
-    const urlRadio = document.getElementById("url")
-    const urlInput = document.getElementById("url-input")
-    urlRadio.addEventListener("change", function () {
-        urlInput.classList.remove("d-none")
-        emailInput.classList.add("d-none");
-    })
-</script>
 {% endblock %}

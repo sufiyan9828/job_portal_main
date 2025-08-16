@@ -6,6 +6,4 @@ from .models import Posts
 class PostForm(ModelForm):
     class Meta:
         model = Posts
-        fields = '__all__' # ['job_title','company_name','job_type','job_pay_type','company_logo','location','email_to','url_to','description']
-
-        
+        fields =  ['job_title','company_name','job_type','job_pay_type','company_logo','location','email_to','description']
