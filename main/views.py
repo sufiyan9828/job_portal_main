@@ -9,9 +9,3 @@ def home(request):
 
 def faq(request):
     return render(request,'main/faq.html')
-
-def jobs(request):
-    return render(request,'main/jobs.html')
-
-def posts(request):
-    return render(request,'main/posts.html')
