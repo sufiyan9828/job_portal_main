@@ -17,14 +17,13 @@ class User(AbstractUser):
      ))
 
     def __str__(self):
-        return self.username
-    
+        return self.username    
     
 class JobSeekerProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     educations = models.CharField(max_length=200,blank=True)
     skills = models.CharField(max_length=200,blank=True)
-    experience = models.CharField(max_length=200, blank=True) 
+    experience = models.CharField(max_length=200, blank=True)
     resume = models.FileField(upload_to='resumes/', blank=True, null=True)
 
 class EmployerProfile(models.Model):

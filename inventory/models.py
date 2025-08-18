@@ -20,6 +20,7 @@ class Posts(models.Model):
 
     company_logo = models.ImageField(null = True,blank = True)
 
+    salary = models.CharField(max_length=100)
 
     email_to = models.EmailField()  
 
