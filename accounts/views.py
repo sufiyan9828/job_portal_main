@@ -1,7 +1,9 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
 from django.views import View
-from .forms import RegisterForm,LoginForm
+from .models import *
+from .forms import *
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,authenticate,logout
 # Create your views here.
 
@@ -17,6 +19,10 @@ class Register(View):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
+            if user.user_type == 'E':
+                profile = EmployerProfile.objects.create(user=user)
+            elif user.user_type == 'J':
+                profile = JobSeekerProfile.objects.create(user = user)
             messages.success(request,f"Account Created successfully, Now Login {user.username}")
             return redirect('login')
         else:
@@ -65,4 +71,64 @@ class Logout(View):
         logout(request)
         return redirect('/')
 
-    
+def profile_details(request):
+        user = request.user 
+        if request.user.user_type == 'E':
+            profile = get_object_or_404(EmployerProfile,user=user)
+            context = {
+                'profile': profile
+            }
+            return render(request,'accounts/profile.html',context)
+        elif request.user.user_type == 'J':
+            profile = get_object_or_404(JobSeekerProfile,user=user)
+            context = {
+                'profile': profile
+            }
+            return render(request,'accounts/profile.html',context)
+        else:
+            profile = None
+            context = {
+            'profile': profile
+            }
+            return render(request,'accounts/profile.html',context)
+        
+@login_required
+def profile_update(request):
+    user = request.user
+    if user.user_type == 'J':
+        profile = get_object_or_404(JobSeekerProfile, user=user)
+        if request.method == "POST":
+          form = JobSeekerProfileForm(request.POST,instance=profile)
+          if form.is_valid():
+               form.save()
+               return redirect('profile_details')
+          else:
+               context={
+                    'form':form
+               }
+               return render(request,'accounts/profile_update.html',context)
+        elif request.method == "GET":
+          form = JobSeekerProfileForm(instance=profile)
+          context={
+               'form':form
+          }
+          return render(request,'accounts/profile_update.html',context)
+        
+    elif user.user_type == 'E':
+        profile = get_object_or_404(EmployerProfile, user=user)
+        if request.method == "POST":
+          form = EmployerProfileForm(request.POST,instance=profile)
+          if form.is_valid():
+               form.save()
+               return redirect('profile_details')
+          else:
+               context={
+                    'form':form
+               }
+               return render(request,'accounts/profile_update.html',context)
+        elif request.method == "GET":
+          form = EmployerProfileForm(instance=profile)
+          context={
+               'form':form
+          }
+          return render(request,'accounts/profile_update.html',context)

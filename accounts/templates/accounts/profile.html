@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block main %}
+{% if user.user_type == 'J' %}
+<h3>Job Seeker Profile</h3>
+<p>username: {{ profile.user.username }}</p>
+<p>Education: {{ profile.educations }}</p>
+<p>Skills: {{ profile.skills }}</p>
+
+{% elif user.user_type == 'E' %}
+<h3>Employer Profile</h3>
+<p>Company: {{ profile.company_name }}</p>
+{% endif %}
+
+<p>
+  <a href="{% url 'profile_update' %}" class="btn btn-primary">Update Profile</a>
+</p>
+
+{% endblock %}

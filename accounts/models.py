@@ -5,17 +5,28 @@ class User(AbstractUser):
     contact = models.CharField(max_length=13)
     
     user_type = models.CharField(max_length=1,choices = (
-        ('E',"Employeer"),
+        ('E',"Employer"),
         ('J',"Job-Seeker"),
     ))
+
+    gender = models.CharField(max_length=3, default="Not Specified" ,choices=(
+          ('M',"Male"),
+          ('F',"Female"),
+          ('o',"other"),
+          ('N/A',"Don't Want to mention")
+     ))
+
     def __str__(self):
         return self.username
+    
+    
+class JobSeekerProfile(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    educations = models.CharField(max_length=200,blank=True)
+    skills = models.CharField(max_length=200,blank=True)
+    experience = models.CharField(max_length=200, blank=True) 
+    resume = models.FileField(upload_to='resumes/', blank=True, null=True)
 
-class Address(models.Model):
-    title = models.CharField(max_length=40)
-    address_line_one = models.CharField(max_length=50)
-    address_line_two = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
-    pincode = models.IntegerField()
-    user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
+class EmployerProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=100)
