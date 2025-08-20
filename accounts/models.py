@@ -27,5 +27,5 @@ class JobSeekerProfile(models.Model):
     resume = models.FileField(upload_to='resumes/', blank=True, null=True)
 
 class EmployerProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     company_name = models.CharField(max_length=100)

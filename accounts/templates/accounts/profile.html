@@ -1,14 +1,162 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block main %}
 {% if user.user_type == 'J' %}
 <h3>Job Seeker Profile</h3>
-<p>username: {{ profile.user.username }}</p>
-<p>Education: {{ profile.educations }}</p>
-<p>Skills: {{ profile.skills }}</p>
-<p>Experience: {{ profile.experience }}</p>
-
+<section id="job-seeker-part1" class="py-3">
+  <div class="container d-flex">
+    <div class="profile-logo">
+      <img src="{% static 'image/person.jpg' %}" class="img-fluid rounded-bottom-circle plogo border border-black"
+        alt="Logo" />
+    </div>
+    <div class="details">
+      <div class="contacts p-sm-5">
+        <h4><strong>Username:</strong> {{ profile.user.username }}</h4>
+        <h4><strong>Contact:</strong> {{ profile.user.contact }}</h4>
+        <h4><strong>Gender:</strong> {{ profile.user.gender }}</h4>
+      </div>
+      <div class="update mx-5">
+        <a href="#" class="btn btn-primary">Update Profile</a>
+      </div>
+    </div>
+  </div>
+</section>
+<hr>
+<section id="job-seeker-part2" class="py-">
+  <div class="container border-0 w-auto h-auto">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="education">
+          <div class="card text-start">
+            <div class="card-body">
+              <h4 class="card-title">
+                <h4 class="fw-bold">Education:</h4>
+              </h4>
+              <p class="card-text">
+              <p><strong>Degree:</strong>{{ profile.educations}}</p>
+              </p>
+              <p class="card-text">
+              <p><strong>Institute:</strong>{{ profile.educations }}</p>
+              </p>
+              <p class="card-text">
+              <p><strong>Year:</strong>{{ profile.educations }}</p>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="skill">
+          <div class="card text-start">
+            <div class="card-body">
+              <h4 class="card-title">
+                <h4 class="fw-bold">Skill:</h4>
+              </h4>
+              <p class="card-text ">
+              <ul class="list-group list-group-numbered">
+                <li class="list-group-item">{{ profile.skills }}</li>
+                <li class="list-group-item">{{ profile.skills }}</li>
+                <li class="list-group-item">{{ profile.skills }}</li>
+              </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<hr>
+<section id="job-seeker-part3" class="py-5">
+  <div class="container resume">
+    <div class="card shadow-sm text-center mx-auto">
+      <div class="card-body">
+        <h4 class="fw-bold">Resume</h4>
+        <a name="" id="" class="btn btn-secondary" href="#" role="button">Resume</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="job-seeker-part4">
+  <div class="container">
+    <div class="row">
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Title</h3>
+            <p class="card-text">Text</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Title</h3>
+            <p class="card-text">Text</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% elif user.user_type == 'E' %}
 <h3>Employer Profile</h3>
+<section id="employer-part1" class="py-5">
+  <div class="container d-flex">
+    <div class="profile-logo">
+      <img src="{% static 'image/person.jpg' %}" class="img-fluid rounded-bottom-circle plogo border border-black"
+        alt="Logo" />
+
+    </div>
+    <div class="details">
+      <div class="contacts p-sm-5">
+        <h4><strong>Username:</strong> Try Again</h4>
+        <h4><strong>Status:</strong> Employer </h4>
+        <h4><strong>Contact:</strong> 1234567890</h4>
+        <h4><strong>Gender:</strong> Male</h4>
+      </div>
+      <div class="update mx-5">
+        <a href="#" class="btn btn-primary">Update Profile</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="employer-part2" class="py-5">
+  <div class="container border-0 w-auto h-auto">
+    <div class="card text-start">
+      <div class="card-body">
+        <h4 class="card-title"><strong>Company Name:</strong>Quastech</h4>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="employer-part3" class="py-5">
+  <div class="container">
+    <div class="card shadow-sm border">
+      <div class="card-body">
+        <h4 class="card-title">Jobs Posted by Try Agin:</h4>
+        <div class="row">
+          <div class="col-4">
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title">Quastech</h3>
+                <p class="card-text">Text</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title">Quastech</h3>
+                <p class="card-text">Text</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <p>Company: {{ profile.company_name }}</p>
 {% endif %}
 

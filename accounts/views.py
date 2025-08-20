@@ -47,6 +47,10 @@ class Login(View):
             user = authenticate(request,username = username, password = password)
             if user:
                 login(request,user)
+                if user.user_type == 'E' and EmployerProfile.objects.filter(user = user) == True :
+                    profile = EmployerProfile.objects.create(user=user)
+                elif user.user_type == 'J' and EmployerProfile.objects.filter(user = user) == True:
+                    profile = JobSeekerProfile.objects.create(user = user)
                 messages.success(request,"Login Successfull")
                 return redirect('home')
             else:
